@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <title-bar />
-
+        <drawer-component />
         <v-main>
             <router-view/>
         </v-main>
@@ -10,9 +10,10 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import TitleBar from "@/components/TitleBar.vue";
+import TitleBar from "@/components/TitleBarComponent.vue";
+import DrawerComponent from "@/components/DrawerComponent.vue";
 
-@Component({components:{TitleBar}})
+@Component({components:{TitleBar, DrawerComponent}})
 export default class App extends Vue {
 
 }
