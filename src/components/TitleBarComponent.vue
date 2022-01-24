@@ -1,5 +1,5 @@
 <template>
-    <v-system-bar dark color="#121212">
+    <v-system-bar dark color="primary" app>
         <v-spacer class="title-bar"/>
         <div>
             <v-btn icon small>
@@ -18,7 +18,7 @@
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
 
-@Component({components:{}})
+@Component
 export default class TitleBar extends Vue {
 
 }
