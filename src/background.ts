@@ -15,12 +15,12 @@ async function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: (process.env
-          .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
+      nodeIntegration: (process.env.ELECTRON_NODE_INTEGRATION as unknown) as boolean,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
     }
   })
@@ -59,7 +59,7 @@ app.on('ready', async () => {
     // Install Vue Devtools
     try {
       await installExtension(VUEJS_DEVTOOLS)
-    } catch (e) {
+    } catch (e: any) {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
