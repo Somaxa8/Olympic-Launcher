@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <title-bar />
-        <drawer-component />
+        <drawer-component v-if="showMenu()"/>
         <v-main>
             <router-view/>
         </v-main>
@@ -15,6 +15,10 @@ import DrawerComponent from "@/components/DrawerComponent.vue";
 
 @Component({components:{TitleBar, DrawerComponent}})
 export default class App extends Vue {
+
+    showMenu() {
+        return this.$route.name != null && this.$route.name != "Login"
+    }
 
 }
 </script>

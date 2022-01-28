@@ -26,12 +26,13 @@
 import {Component, Vue} from "vue-property-decorator";
 import {getModule} from "vuex-module-decorators";
 import DrawerModule from "@/store/DrawerModule";
+import SessionModule from "@/store/SessionModule";
 
 
 @Component
 export default class DrawerComponent extends Vue {
-
     drawerModule: DrawerModule = getModule(DrawerModule)
+    sessionModule: SessionModule = getModule(SessionModule)
 
     avatarInitials: string = ""
 

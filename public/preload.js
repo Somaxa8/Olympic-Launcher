@@ -1,11 +1,16 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer, clipboard } = require('electron')
 
-const validChannels = ["hide-app", "minimize-app", "close-app"]
+const validChannels = ["hide-app", "minimize-app", "close-app", "get-session"]
 contextBridge.exposeInMainWorld(
     'ipc', {
         send: (channel, data) => {
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data)
+            }
+        },
+        sendSync: (channel, data) => {
+            if (validChannels.includes(channel)) {
+                return ipcRenderer.sendSync(channel)
             }
         },
         on: (channel, func) => {
@@ -14,5 +19,11 @@ contextBridge.exposeInMainWorld(
                 ipcRenderer.on(channel, (event, ...args) => func(...args))
             }
         },
+        clearClipboard: () => {
+            clipboard.clear()
+        },
+        getClipboard: (func) => {
+            func(clipboard.readText())
+        }
     },
 );
