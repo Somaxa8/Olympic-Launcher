@@ -1,18 +1,16 @@
 <template>
     <div>
-        <webview ref="webview" class="webview" src="https://www.epicgames.com/store/en-US/" />
+        <webview class="webview" partition="persist:epicstore" :preload="storeInjector" src="https://www.epicgames.com/store/en-US/" />
     </div>
 </template>
 
 <script lang="ts">
 import {Component, Ref, Vue} from "vue-property-decorator";
+import InjectorTool from "@/service/tool/InjectorTool";
 
 @Component
 export default class StoreView extends Vue {
-    @Ref() readonly webview!: Element
-
-    created() {
-    }
+    storeInjector: string = InjectorTool.STORE_INJECTOR
 
 }
 </script>
