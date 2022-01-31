@@ -1,7 +1,7 @@
 import {ipcMain, IpcMainEvent, BrowserWindow} from "electron";
 import Session from "@/model/Session";
 import Store from "electron-store";
-import log from "loglevel";
+import LegendaryService from "@/service/LegendaryService";
 
 export default class SessionMain {
 
@@ -15,7 +15,7 @@ export default class SessionMain {
             session.sid = sid
             store.set("session", session)
 
-            // log.info("Session has been saved: ", store.get("session"))
+            await LegendaryService.login(sid)
         })
 
         ipcMain.on("get-session", async (event: IpcMainEvent) => {
