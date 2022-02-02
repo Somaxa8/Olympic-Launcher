@@ -2,7 +2,7 @@
     <v-app>
         <title-bar />
         <drawer-component v-if="showMenu()"/>
-        <v-main>
+        <v-main class="fill-height main">
             <router-view/>
         </v-main>
     </v-app>
@@ -24,6 +24,12 @@ export default class App extends Vue {
 </script>
 
 <style>
+.main {
+    padding: 0 0 0 56px !important;
+    height: 95vh;
+    overflow-y: scroll;
+    margin-top: 24px;
+}
 body::-webkit-scrollbar {
     display: none;
 }
