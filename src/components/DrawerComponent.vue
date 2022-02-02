@@ -1,7 +1,7 @@
 <template>
-    <v-navigation-drawer :mini-variant="mini" color="secondary" app dark permanent>
+    <v-navigation-drawer :mini-variant="mini" color="primary" app dark permanent>
         <v-list-item class="px-2">
-            <v-list-item-avatar class="ml-0" color="info white--text">
+            <v-list-item-avatar class="ml-0" color="customGray white--text">
                 {{avatarInitials}}
             </v-list-item-avatar>
             <v-btn icon tile @click.stop="mini = !mini">
@@ -37,8 +37,8 @@ export default class DrawerComponent extends Vue {
     avatarInitials: string = ""
 
     items = [
-        {title: "Library", to: "/", icon: "mdi-gamepad-variant"},
-        {title: "Store", to: "/store", icon: "mdi-storefront"},
+        {title: "Library", to: "/", icon: "mdi-view-grid"},
+        {title: "Store", to: "/store", icon: "mdi-tag"},
         {title: "Settings", to: "/settings", icon: "mdi-tune"},
         {title: "Wiki", to: "/wiki", icon: "mdi-book-open-blank-variant"},
     ]
@@ -56,8 +56,14 @@ export default class DrawerComponent extends Vue {
     }
 
     createAvatarInitials() {
-        this.avatarInitials = "Me";
+        this.avatarInitials = "M";
     }
 
 }
 </script>
+
+<style>
+.v-navigation-drawer__border {
+    display: none;
+}
+</style>

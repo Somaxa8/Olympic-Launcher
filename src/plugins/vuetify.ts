@@ -28,7 +28,7 @@ export default new Vuetify({
                 info: "#0078f2",
                 success: "#00b879",
                 warning: "#f0ad4e",
-                customGray: "#414141"
+                customGray: "#202020"
             },
         }
     },
