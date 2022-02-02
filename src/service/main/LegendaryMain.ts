@@ -7,7 +7,8 @@ export default class LegendaryMain {
     static main(windows: BrowserWindow) {
 
         ipcMain.on("get-library", async (event: IpcMainEvent) => {
-            event.returnValue = LegendaryService.getLibrary()
+            const library = await LegendaryService.getLibrary()
+            event.reply("response-library", library)
         })
 
     }

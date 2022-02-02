@@ -1,6 +1,6 @@
 import {join} from "path";
 import SystemTool from "@/service/tool/SystemTool";
-import {readFileSync} from "fs";
+import {readFile} from "fs/promises";
 import Game from "@/model/legendary/Game";
 
 export default class LegendaryTool {
@@ -11,9 +11,9 @@ export default class LegendaryTool {
     static readonly libraryPath: string = `${this.legendaryConfigPath}/metadata/`
 
 
-    static loadGame(filename: string): Game {
+    static async loadGame(filename: string): Promise<Game> {
         const path = `${this.libraryPath}/${filename}`
-        const { app_name, metadata } = JSON.parse(readFileSync(path, "utf-8"))
+        const { app_name, metadata } = JSON.parse(await readFile(path, "utf-8"))
         const { namespace } = metadata
         const isGame = namespace !== "ue"
         const {

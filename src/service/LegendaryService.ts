@@ -2,12 +2,13 @@ import log from "loglevel";
 import {spawn} from "child_process";
 import { session } from "electron";
 import LegendaryTool from "@/service/tool/LegendaryTool";
-import {existsSync, readdirSync} from "fs";
+import {readdir} from "fs/promises";
 import Game from "@/model/legendary/Game";
+import Store from "electron-store";
 
 export default class LegendaryService {
 
-    static getLibrary(): Game[] {
+    static async getLibrary(): Promise<Game[]> {
         log.info("Loading library...")
 
         const command: string[] = "list".split(" ")
@@ -15,16 +16,15 @@ export default class LegendaryService {
         try {
             const child = spawn(LegendaryTool.legendaryBin, command)
             child.on("close", () => log.info("Finished"))
+
+            const library: Game[] = []
+            const list = await readdir(LegendaryTool.libraryPath)
+            for (let index in list) library.push(await LegendaryTool.loadGame(list[index]))
+            return library
         } catch (err) {
             log.error(err)
+            return Promise.reject(err)
         }
-
-        if (!existsSync(LegendaryTool.libraryPath)) {
-            log.error("Library path no exists...")
-            return []
-        }
-
-        return readdirSync(LegendaryTool.libraryPath).map((filename: any) => LegendaryTool.loadGame(filename))
     }
 
     static login(sid: string) {
@@ -41,13 +41,16 @@ export default class LegendaryService {
     }
 
     static async logout() {
-        // await execAsync(`${legendaryBin} auth --delete`)
+        const command: string[] = "auth --delete".split(" ")
+        const child = spawn(LegendaryTool.legendaryBin, command)
+        child.on("close", () => log.info("Legendary logout successfully..."))
         const ses = session.fromPartition('persist:epicstore')
         await ses.clearStorageData()
         await ses.clearCache()
         await ses.clearAuthCache()
         await ses.clearHostResolverCache()
-        // TODO: implement clear electron-store data & legendary logout
+        const store = new Store()
+        store.clear()
     }
 
 }
