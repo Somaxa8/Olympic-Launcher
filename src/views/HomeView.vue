@@ -20,6 +20,7 @@ export default class HomeView extends Vue {
 
     created() {
         LegendaryRenderer.getLibrary(window, this.library)
+        console.log(this.library)
     }
 
 }

@@ -1,9 +1,11 @@
 import {join} from "path";
 import SystemTool from "@/service/tool/SystemTool";
 import {readFile} from "fs/promises";
+import {existsSync} from "fs";
 import Game from "@/model/legendary/Game";
 import ConstantTool from "@/service/tool/ConstantTool";
-import InstallProgress from "@/model/legendary/InstallProgress";
+import prettyBytes from "pretty-bytes";
+import InstalledInfo from "@/model/legendary/InstalledInfo";
 
 export default class LegendaryTool {
 
@@ -14,9 +16,19 @@ export default class LegendaryTool {
     static readonly olympicFolderPath = SystemTool.isFlatpak ? `${SystemTool.home}/config/${ConstantTool.PROJECT_FOLDER}` : `${SystemTool.home}/.config/${ConstantTool.PROJECT_FOLDER}`
     static readonly olympicConfigPath = `${LegendaryTool.olympicFolderPath}/config.json`
 
+    static async getInstalledGame(appName: string): Promise<InstalledInfo> {
+        const installedJSON = `${this.legendaryConfigPath}/installed.json`
+        if (existsSync(installedJSON)) {
+            const jsonFile = await readFile(installedJSON, 'utf-8')
+            const installedGames = new Map(Object.entries(JSON.parse(jsonFile) as InstalledInfo))
+            return installedGames.get(appName)
+        } else {
+            return {} as InstalledInfo
+        }
+    }
 
     static async loadGame(filename: string): Promise<Game> {
-        const path = `${this.libraryPath}/${filename}`
+        const path = `${LegendaryTool.libraryPath}/${filename}`
         const { app_name, metadata } = JSON.parse(await readFile(path, "utf-8"))
         const { namespace } = metadata
         const isGame = namespace !== "ue"
@@ -81,19 +93,19 @@ export default class LegendaryTool {
         const artSquare = gameBoxTall ? gameBoxTall.url : null
         const artSquareFront = gameBoxStore ? gameBoxStore.url : null
 
-        // const info = this.installedGames.get(app_name)
-        // const {
-        //     executable = null,
-        //     version = null,
-        //     install_size = null,
-        //     install_path = null,
-        //     platform,
-        //     is_dlc = metadata.categories.filter(
-        //         ({ path }: { path: string }) => path === "dlc"
-        //     ).length || dlcs.includes(app_name)
-        // } = (info === undefined ? {} : info) as InstalledInfo
-        // //
-        // const convertedSize = install_size && prettyBytes(Number(install_size))
+        const info = await LegendaryTool.getInstalledGame(app_name)
+        const {
+            executable = null,
+            version = null,
+            install_size = null,
+            install_path = null,
+            platform,
+            is_dlc = metadata.categories.filter(
+                ({ path }: { path: string }) => path === "dlc"
+            ).length || dlcs.includes(app_name)
+        } = (info === undefined ? {} : info) as InstalledInfo
+
+        const convertedSize = install_size && prettyBytes(Number(install_size))
 
         const game = new Game()
         game.appName = app_name
@@ -105,8 +117,8 @@ export default class LegendaryTool {
         game.developer = developer
         game.extra = {about: {description, shortDescription}, reqs: []}
         game.folderName = installFolder
-        // game.install = {executable, install_path, install_size: convertedSize, is_dlc, version, platform}
-        // game.isInstalled = info !== undefined
+        game.install = {executable, install_path, install_size: convertedSize, is_dlc, version, platform}
+        game.isInstalled = info !== undefined
         game.isGame = isGame
         game.isUeAsset = isUeAsset
         game.isUePlugin = isUePlugin
