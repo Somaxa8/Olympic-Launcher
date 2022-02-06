@@ -12,7 +12,10 @@
   },
   "main": "background.js",
   "dependencies": {
+    "axios": "^0.25.0",
+    "download": "^8.0.0",
     "electron-store": "^8.0.1",
+    "json2typescript": "^1.5.0-rc.0",
     "loglevel": "^1.8.0",
     "pretty-bytes": "^5.6.0",
     "vue": "^2.6.11",
@@ -24,6 +27,7 @@
     "vuex-module-decorators": "^1.2.0"
   },
   "devDependencies": {
+    "@types/download": "^8.0.1",
     "@types/electron-devtools-installer": "^2.2.1",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",

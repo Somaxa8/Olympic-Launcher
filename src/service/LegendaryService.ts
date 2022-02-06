@@ -70,7 +70,7 @@ export default class LegendaryService {
             log.info("Installation done")
         } catch (err) {
             log.error(err)
-            await Promise.reject(err)
+            return Promise.reject(err)
         }
 
     }
@@ -104,6 +104,7 @@ export default class LegendaryService {
             child.on("close", () => log.info("Finished login"))
         } catch (err) {
             log.error(err)
+            return Promise.reject(err)
         }
     }
 
