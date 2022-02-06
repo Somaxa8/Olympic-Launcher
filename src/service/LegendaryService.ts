@@ -5,8 +5,75 @@ import LegendaryTool from "@/service/tool/LegendaryTool";
 import {readdir} from "fs/promises";
 import Game from "@/model/legendary/Game";
 import Store from "electron-store";
+import SystemTool from "@/service/tool/SystemTool";
+import InstallProgress from "@/model/legendary/InstallProgress";
 
 export default class LegendaryService {
+
+    static async getGameProgress(appName: string) {
+        const logPath = `${LegendaryTool.legendaryConfigPath}/${appName}.log`
+
+        const unixProgressCommand = `tail ${logPath} | grep 'Progress: ' | awk '{print $5, $11}' | tail -1`
+        const progressCommand = unixProgressCommand
+
+        const unixDownloadedCommand = `tail ${logPath} | grep 'Downloaded: ' | awk '{print $5}' | tail -1`
+        const downloadedCommand = unixDownloadedCommand
+
+        const unixEtaCommand = `tail ${logPath}| grep 'Progress: ' | awk '{print $11}' | tail -1`
+        const etaCommand = unixEtaCommand
+
+        const unixDownloadSizeCommand = `cat ${logPath} | grep 'Download size: ' | awk '{print $5}'`
+        const downloadSizeCommand = unixDownloadSizeCommand
+
+        const { stdout: progressResult } = await SystemTool.execAsync(progressCommand, {
+            shell: SystemTool.getShell()
+        })
+        const { stdout: downloadedResult } = await SystemTool.execAsync(downloadedCommand, {
+            shell: SystemTool.getShell()
+        })
+        const { stdout: etaResult } = await SystemTool.execAsync(etaCommand, {
+            shell: SystemTool.getShell()
+        })
+        const { stdout: downloadSizeResult } = await SystemTool.execAsync(downloadSizeCommand, {
+            shell: SystemTool.getShell()
+        })
+
+        let percent: string
+        let eta: string
+        let bytes: string
+        let downloadSize: string
+
+        percent = progressResult.split(" ")[0]
+        eta = etaResult
+        bytes = downloadedResult + "MiB"
+        downloadSize = downloadSizeResult + "MiB"
+
+        const progress = new InstallProgress(bytes, eta, percent, downloadSize)
+        log.info(`Game: ${appName} Percent: ${progress.percent} Downloaded: ${progress.bytes}/${downloadSize} ETA: ${eta}`)
+        return progress
+    }
+
+    static async installGame(appName: string, path: string, installDlcs: boolean = false) {
+        log.info("Start installation")
+        const maxWorkers = 4
+        const workers = `--max-workers ${maxWorkers}`
+        const withDlcs = installDlcs ? "--with-dlcs" : "--skip-dlcs"
+        const installSdl = "--skip-sdl"
+        const platformToInstall = "Windows"
+        const writeLog = `|& tee "${LegendaryTool.legendaryConfigPath}/${appName}.log"`
+        const command = `${LegendaryTool.legendaryBin} install ${appName} --platform ${platformToInstall} --base-path ${path} ${withDlcs} ${installSdl} ${workers} --yes ${writeLog}`
+        log.debug(command)
+
+        try {
+            const execution = await SystemTool.execAsync(command, SystemTool.execOptions)
+            log.debug(execution.stdout)
+            log.info("Installation done")
+        } catch (err) {
+            log.error(err)
+            await Promise.reject(err)
+        }
+
+    }
 
     static async getLibrary(): Promise<Game[]> {
         log.info("Loading library...")

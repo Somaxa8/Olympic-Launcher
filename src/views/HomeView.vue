@@ -2,9 +2,7 @@
     <v-container fluid>
         <v-row>
             <v-col cols="2" v-for="game in library" :key="game.appName">
-                <v-card width="180">
-                    <v-img :src="game.artSquare"></v-img>
-                </v-card>
+                <GameComponent :game="game"/>
             </v-col>
         </v-row>
     </v-container>
@@ -14,8 +12,9 @@
 import {Component, Vue} from "vue-property-decorator";
 import LegendaryRenderer from "@/service/renderer/LegendaryRenderer";
 import Game from "@/model/legendary/Game";
+import GameComponent from "@/components/GameComponent.vue";
 
-@Component
+@Component({components:{GameComponent}})
 export default class HomeView extends Vue {
     library: Game[] = []
 

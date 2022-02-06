@@ -2,13 +2,17 @@ import {join} from "path";
 import SystemTool from "@/service/tool/SystemTool";
 import {readFile} from "fs/promises";
 import Game from "@/model/legendary/Game";
+import ConstantTool from "@/service/tool/ConstantTool";
+import InstallProgress from "@/model/legendary/InstallProgress";
 
 export default class LegendaryTool {
 
     // @ts-ignore
-    static readonly legendaryBin: string = join(__static, "/bin/", process.platform, "/legendary")
-    static readonly legendaryConfigPath: string = SystemTool.isFlatpak ? `${SystemTool.home}/config/legendary` : `${SystemTool.home}/.config/legendary`
-    static readonly libraryPath: string = `${this.legendaryConfigPath}/metadata/`
+    static readonly legendaryBin = join(__static, "/bin/", process.platform, "/legendary")
+    static readonly legendaryConfigPath = SystemTool.isFlatpak ? `${SystemTool.home}/config/legendary` : `${SystemTool.home}/.config/legendary`
+    static readonly libraryPath = `${this.legendaryConfigPath}/metadata/`
+    static readonly olympicFolderPath = SystemTool.isFlatpak ? `${SystemTool.home}/config/${ConstantTool.PROJECT_FOLDER}` : `${SystemTool.home}/.config/${ConstantTool.PROJECT_FOLDER}`
+    static readonly olympicConfigPath = `${LegendaryTool.olympicFolderPath}/config.json`
 
 
     static async loadGame(filename: string): Promise<Game> {

@@ -1,8 +1,17 @@
 const { contextBridge, ipcRenderer, clipboard } = require('electron')
 
-const validChannels = ["hide-app", "minimize-app", "close-app", "get-session", "get-library", "response-library"]
+const validChannels = [
+    "hide-app", "minimize-app", "close-app",
+    "get-session", "get-library", "response-library",
+    "install-game", "install-status", "game-progress"
+]
 contextBridge.exposeInMainWorld(
     'ipc', {
+        invoke: (channel, data) => {
+            if (validChannels.includes(channel)) {
+                return ipcRenderer.invoke(channel, data)
+            }
+        },
         send: (channel, data) => {
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data)
