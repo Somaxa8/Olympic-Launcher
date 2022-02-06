@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import InjectorTool from "@/service/tool/InjectorTool";
+import InjectorTool from "@/service/tools/InjectorTool";
 import WebviewTag = Electron.WebviewTag;
 import SessionRenderer from "@/service/renderer/SessionRenderer";
 import SessionModule from "@/store/SessionModule";

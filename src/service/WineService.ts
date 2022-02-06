@@ -1,12 +1,12 @@
 import axios from "axios";
-import JsonTool from "@/service/tool/JsonTool";
-import Release from "@/model/wine/Release";
+import JsonTool from "@/service/tools/JsonTool";
+import Release from "@/models/wine/Release";
 import log from "loglevel";
 import download from "download";
-import WineTool from "@/service/tool/WineTool";
+import WineTool from "@/service/tools/WineTool";
 import {existsSync, writeFileSync} from "fs";
 import {mkdir, rm} from "fs/promises";
-import SystemTool from "@/service/tool/SystemTool";
+import SystemTool from "@/service/tools/SystemTool";
 import Store from "electron-store";
 
 export default class WineService {

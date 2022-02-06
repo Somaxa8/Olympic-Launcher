@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import {Component, Ref, Vue} from "vue-property-decorator";
-import InjectorTool from "@/service/tool/InjectorTool";
+import InjectorTool from "@/service/tools/InjectorTool";
 
 @Component
 export default class StoreView extends Vue {

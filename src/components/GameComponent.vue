@@ -19,9 +19,9 @@
 
 <script lang="ts">
 import {Component, Prop, Vue} from "vue-property-decorator";
-import InstallProgress from "@/model/legendary/InstallProgress";
+import InstallProgress from "@/models/legendary/InstallProgress";
 import LegendaryRenderer from "@/service/renderer/LegendaryRenderer";
-import Game from "@/model/legendary/Game";
+import Game from "@/models/legendary/Game";
 
 @Component
 export default class GameComponent extends Vue {

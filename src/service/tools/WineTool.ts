@@ -1,4 +1,4 @@
-import LegendaryTool from "@/service/tool/LegendaryTool";
+import LegendaryTool from "@/service/tools/LegendaryTool";
 import Store from "electron-store";
 
 export default class WineTool {

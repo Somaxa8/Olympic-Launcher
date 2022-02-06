@@ -1,8 +1,8 @@
 import {ipcMain, IpcMainEvent, BrowserWindow, IpcMainInvokeEvent} from "electron";
 import LegendaryService from "@/service/LegendaryService";
-import SystemTool from "@/service/tool/SystemTool";
+import SystemTool from "@/service/tools/SystemTool";
 import {join} from "path";
-import ConstantTool from "@/service/tool/ConstantTool";
+import ConstantTool from "@/service/tools/ConstantTool";
 
 export default class LegendaryMain {
 

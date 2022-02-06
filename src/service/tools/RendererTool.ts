@@ -1,4 +1,4 @@
-import InstallProgress from "@/model/legendary/InstallProgress";
+import InstallProgress from "@/models/legendary/InstallProgress";
 
 export default class RendererTool {
 

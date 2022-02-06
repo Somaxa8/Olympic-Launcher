@@ -1,7 +1,7 @@
-import Game from "@/model/legendary/Game";
+import Game from "@/models/legendary/Game";
 import log from "loglevel";
-import InstallProgress from "@/model/legendary/InstallProgress";
-import RendererTool from "@/service/tool/RendererTool";
+import InstallProgress from "@/models/legendary/InstallProgress";
+import RendererTool from "@/service/tools/RendererTool";
 import {Vue} from "vue-property-decorator";
 
 export default class LegendaryRenderer {

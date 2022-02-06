@@ -1,11 +1,11 @@
 import {join} from "path";
-import SystemTool from "@/service/tool/SystemTool";
+import SystemTool from "@/service/tools/SystemTool";
 import {readFile} from "fs/promises";
 import {existsSync} from "fs";
-import Game from "@/model/legendary/Game";
-import ConstantTool from "@/service/tool/ConstantTool";
+import Game from "@/models/legendary/Game";
+import ConstantTool from "@/service/tools/ConstantTool";
 import prettyBytes from "pretty-bytes";
-import InstalledInfo from "@/model/legendary/InstalledInfo";
+import InstalledInfo from "@/models/legendary/InstalledInfo";
 
 export default class LegendaryTool {
 

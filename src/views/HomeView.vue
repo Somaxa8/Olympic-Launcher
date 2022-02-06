@@ -11,7 +11,7 @@
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
 import LegendaryRenderer from "@/service/renderer/LegendaryRenderer";
-import Game from "@/model/legendary/Game";
+import Game from "@/models/legendary/Game";
 import GameComponent from "@/components/GameComponent.vue";
 
 @Component({components:{GameComponent}})

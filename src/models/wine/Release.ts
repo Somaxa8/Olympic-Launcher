@@ -1,5 +1,5 @@
 import {JsonObject, JsonProperty} from "json2typescript";
-import {Asset} from "@/model/wine/Asset";
+import {Asset} from "@/models/wine/Asset";
 
 @JsonObject("Release")
 export default class Release {

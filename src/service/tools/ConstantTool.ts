@@ -1,5 +1,5 @@
 import {join} from "path";
-import SystemTool from "@/service/tool/SystemTool";
+import SystemTool from "@/service/tools/SystemTool";
 
 export default class ConstantTool {
 

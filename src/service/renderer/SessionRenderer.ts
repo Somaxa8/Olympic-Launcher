@@ -1,4 +1,4 @@
-import Session from "@/model/Session";
+import Session from "@/models/Session";
 
 export default class SessionRenderer {
 

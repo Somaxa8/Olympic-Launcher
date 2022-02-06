@@ -1,5 +1,5 @@
 import {ipcMain, IpcMainEvent, BrowserWindow} from "electron";
-import Session from "@/model/Session";
+import Session from "@/models/Session";
 import Store from "electron-store";
 import LegendaryService from "@/service/LegendaryService";
 

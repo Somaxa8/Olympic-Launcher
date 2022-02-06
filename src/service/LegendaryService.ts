@@ -1,12 +1,12 @@
 import log from "loglevel";
 import {spawn} from "child_process";
 import { session } from "electron";
-import LegendaryTool from "@/service/tool/LegendaryTool";
+import LegendaryTool from "@/service/tools/LegendaryTool";
 import {readdir} from "fs/promises";
-import Game from "@/model/legendary/Game";
+import Game from "@/models/legendary/Game";
 import Store from "electron-store";
-import SystemTool from "@/service/tool/SystemTool";
-import InstallProgress from "@/model/legendary/InstallProgress";
+import SystemTool from "@/service/tools/SystemTool";
+import InstallProgress from "@/models/legendary/InstallProgress";
 
 export default class LegendaryService {
 
