@@ -9,8 +9,16 @@ export class Asset {
     @JsonProperty("browser_download_url", String, true)
     downloadUrl?: string = undefined
 
-    get name(): string {
+    get wineName(): string {
         const name = this.fileName!.replace(".tar.xz", "")
         return name.replace("wine-lutris", "lutris")
+    }
+
+    get dxvkName(): string {
+        return this.fileName!.replace(".tar.gz", "")
+    }
+
+    get vkd3dName() {
+        return this.fileName!.replace(".tar.zst", "")
     }
 }

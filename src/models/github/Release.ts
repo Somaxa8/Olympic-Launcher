@@ -1,5 +1,5 @@
 import {JsonObject, JsonProperty} from "json2typescript";
-import {Asset} from "@/models/wine/Asset";
+import {Asset} from "@/models/github/Asset";
 
 @JsonObject("Release")
 export default class Release {
@@ -14,7 +14,15 @@ export default class Release {
     @JsonProperty("assets", [Asset], true)
     assets?: Asset[] = []
 
-    get asset(): Asset {
+    get wineAsset(): Asset {
         return this.assets!.filter((e: Asset) => e.fileName!.includes("tar.xz"))[0]
+    }
+
+    get dxvkAsset(): Asset {
+        return this.assets!.filter((e: Asset) => e.fileName!.includes("tar.gz"))[0]
+    }
+
+    get vkd3dAsset(): Asset {
+        return this.assets!.filter((e: Asset) => e.fileName!.includes("tar.zst"))[0]
     }
 }

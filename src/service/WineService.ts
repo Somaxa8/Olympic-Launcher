@@ -1,6 +1,6 @@
 import axios from "axios";
 import JsonTool from "@/service/tools/JsonTool";
-import Release from "@/models/wine/Release";
+import Release from "@/models/github/Release";
 import log from "loglevel";
 import download from "download";
 import WineTool from "@/service/tools/WineTool";
@@ -18,21 +18,21 @@ export default class WineService {
             const release = JsonTool.jsonConvert.deserializeObject(response.data, Release)
 
             if (!existsSync(WineTool.winePath)) await mkdir(WineTool.winePath)
-            if (existsSync(WineTool.winePath + release.asset.name)) {
+            if (existsSync(WineTool.winePath + release.wineAsset.wineName)) {
                 log.error("This version of wine already exists")
                 return Promise.reject("This version of wine already exists")
             }
 
-            writeFileSync(WineTool.winePath + release.asset.fileName, await download(release.asset.downloadUrl!));
+            writeFileSync(WineTool.winePath + release.wineAsset.fileName, await download(release.wineAsset.downloadUrl!));
 
-            const command = `tar -xf ${WineTool.winePath + release.asset.fileName} -C ${WineTool.winePath}`
+            const command = `tar -xf ${WineTool.winePath + release.wineAsset.fileName} -C ${WineTool.winePath}`
             await SystemTool.execAsync(command, SystemTool.execOptions)
-            await rm(WineTool.winePath + release.asset.fileName)
+            await rm(WineTool.winePath + release.wineAsset.fileName)
 
             const store = new Store()
-            store.set("wine-version", release.asset.name)
+            store.set("wine-version", release.wineAsset.wineName)
 
-            log.info("!We have downloaded a new update -", release.asset.name)
+            log.info("!We have downloaded a new update -", release.wineAsset.wineName)
         } catch (err) {
             log.error(err)
             return Promise.reject(err)
