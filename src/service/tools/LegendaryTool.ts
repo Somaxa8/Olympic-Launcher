@@ -16,14 +16,14 @@ export default class LegendaryTool {
     static readonly olympicFolderPath = SystemTool.isFlatpak ? `${SystemTool.home}/config/${ConstantTool.PROJECT_FOLDER}` : `${SystemTool.home}/.config/${ConstantTool.PROJECT_FOLDER}`
     static readonly olympicConfigPath = `${LegendaryTool.olympicFolderPath}/config.json`
 
-    static async getInstalledGame(appName: string): Promise<InstalledInfo> {
+    static async getInstalledGame(appName: string): Promise<InstalledInfo | undefined> {
         const installedJSON = `${this.legendaryConfigPath}/installed.json`
         if (existsSync(installedJSON)) {
             const jsonFile = await readFile(installedJSON, 'utf-8')
             const installedGames = new Map(Object.entries(JSON.parse(jsonFile) as InstalledInfo))
             return installedGames.get(appName)
         } else {
-            return {} as InstalledInfo
+            return undefined
         }
     }
 
@@ -93,7 +93,21 @@ export default class LegendaryTool {
         const artSquare = gameBoxTall ? gameBoxTall.url : null
         const artSquareFront = gameBoxStore ? gameBoxStore.url : null
 
+
+        const game = new Game()
+        game.appName = app_name
+        game.artCover = artCover || artSquare || fallBackImage
+        game.artLogo = artLogo
+        game.artSquare = artSquare || artSquareFront || artCover || fallBackImage
+        game.cloudSaveEnabled = cloudSaveEnabled
+        game.compatibleApps = compatibleApps
+        game.developer = developer
+        game.extra = {about: {description, shortDescription}, reqs: []}
+        game.folderName = installFolder
+
         const info = await LegendaryTool.getInstalledGame(app_name)
+        game.isInstalled = info !== undefined
+
         const {
             executable = null,
             version = null,
@@ -106,19 +120,7 @@ export default class LegendaryTool {
         } = (info === undefined ? {} : info) as InstalledInfo
 
         const convertedSize = install_size && prettyBytes(Number(install_size))
-
-        const game = new Game()
-        game.appName = app_name
-        game.artCover = artCover || artSquare || fallBackImage
-        game.artLogo = artLogo
-        game.artSquare = artSquare || artSquareFront || artCover || fallBackImage
-        game.cloudSaveEnabled = cloudSaveEnabled
-        game.compatibleApps = compatibleApps
-        game.developer = developer
-        game.extra = {about: {description, shortDescription}, reqs: []}
-        game.folderName = installFolder
         game.install = {executable, install_path, install_size: convertedSize, is_dlc, version, platform}
-        game.isInstalled = info !== undefined
         game.isGame = isGame
         game.isUeAsset = isUeAsset
         game.isUePlugin = isUePlugin

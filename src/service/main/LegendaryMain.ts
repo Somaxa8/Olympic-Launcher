@@ -15,7 +15,7 @@ export default class LegendaryMain {
         })
 
         ipcMain.on("install-game", async (event: IpcMainEvent, appName: string) => {
-            await LegendaryService.installGame(appName, join(SystemTool.home, "/Games/", ConstantTool.PROJECT_FOLDER, appName))
+            await LegendaryService.installGame(appName, join(SystemTool.home, "/Games/", ConstantTool.PROJECT_FOLDER))
             event.reply("install-status", "DONE")
         })
 
@@ -23,6 +23,9 @@ export default class LegendaryMain {
             return LegendaryService.getGameProgress(appName)
         })
 
+        ipcMain.on("launch-game", async (event: IpcMainEvent, appName: string) => {
+            await LegendaryService.launch(appName)
+        })
     }
 
 }

@@ -22,6 +22,7 @@ import {Component, Prop, Vue} from "vue-property-decorator";
 import InstallProgress from "@/models/legendary/InstallProgress";
 import LegendaryRenderer from "@/service/renderer/LegendaryRenderer";
 import Game from "@/models/legendary/Game";
+import log from "loglevel";
 
 @Component
 export default class GameComponent extends Vue {
@@ -30,12 +31,16 @@ export default class GameComponent extends Vue {
     @Prop() game!: Game
 
     clickGame(appName: string) {
-        LegendaryRenderer.installGame(this, appName)
+        if (!this.game.isInstalled) {
+            LegendaryRenderer.installGame(this, appName)
 
-        setInterval(async () => {
-            if (!this.loading) return
-            await LegendaryRenderer.getProgress(window, appName, this.previousPercent)
-        }, 1500)
+            setInterval(async () => {
+                if (!this.loading) return
+                await LegendaryRenderer.getProgress(window, appName, this.previousPercent)
+            }, 1500)
+        } else {
+            LegendaryRenderer.launchGame(appName)
+        }
     }
 
 }

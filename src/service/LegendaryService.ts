@@ -7,8 +7,25 @@ import Game from "@/models/legendary/Game";
 import Store from "electron-store";
 import SystemTool from "@/service/tools/SystemTool";
 import InstallProgress from "@/models/legendary/InstallProgress";
+import WineTool from "@/service/tools/WineTool";
 
 export default class LegendaryService {
+
+    static async launch(appName: String) {
+        log.info("Running...")
+        const command  = `${LegendaryTool.legendaryBin} launch ${appName} --wine ${WineTool.wineBin}`
+        log.info("Command: ", command)
+
+        try {
+            const execution = await SystemTool.execAsync(command, SystemTool.execOptions)
+            log.debug(execution.stdout)
+            log.info("Execution done")
+        } catch (err) {
+            log.error(err)
+            return Promise.reject(err)
+        }
+    }
+
 
     static async getGameProgress(appName: string) {
         const logPath = `${LegendaryTool.legendaryConfigPath}/${appName}.log`

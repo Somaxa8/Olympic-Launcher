@@ -6,6 +6,11 @@ import {Vue} from "vue-property-decorator";
 
 export default class LegendaryRenderer {
 
+    static launchGame(appName: string) {
+        //@ts-ignore
+        window.ipc.send("launch-game", appName)
+    }
+
     static async getProgress(window: Window, appName: string, previousProgress: InstallProgress) {
         //@ts-ignore
         const progress = await window.ipc.invoke("game-progress", appName)
