@@ -16,14 +16,12 @@ export default class LegendaryRenderer {
         const progress = await window.ipc.invoke("game-progress", appName)
 
         if (progress) {
-            if (previousProgress) {
-                const legendaryPercent = RendererTool.getProgress(progress)
-                const olympicPercent = RendererTool.getProgress(previousProgress)
-                const newPercent: number = Math.round(
-                    (legendaryPercent / 100) * (100 - olympicPercent) + olympicPercent
-                )
-                progress.percent = `${newPercent}%`
-            }
+            const legendaryPercent = RendererTool.getProgress(progress)
+            const olympicPercent = RendererTool.getProgress(previousProgress)
+            const newPercent: number = Math.round(
+                (legendaryPercent / 100) * ((100 - olympicPercent) + olympicPercent)
+            )
+            progress.percent = `${newPercent}%`
             return previousProgress.setInstallProgress(progress)
         }
     }
