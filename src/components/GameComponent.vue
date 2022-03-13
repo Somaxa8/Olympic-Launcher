@@ -1,8 +1,9 @@
 <template>
-    <v-card color="primary" dark elevation="0" width="180">
-        <v-card @click="clickGame(game.appName)">
-            <v-img :src="game.artSquare" :alt="game.title" :style="game.isInstalled ? '' : 'filter: grayscale(100%);' " :gradient="game.isInstalled ? '' : 'to top right, rgba(44, 44, 44, 0.7), rgba(44, 44, 44, 0.7)'">
+    <v-card color="primary" dark elevation="0" width="180" height="100%">
+        <v-card @click="clickGame(game.appName)" height="calc(100% - 48px)">
+            <v-img :src="game.artSquare + '?h=854&resize=1&w=640'" height="100%" min-height="132" min-width="99" width="inherit" :alt="game.title" class="d-flex justify-center align-center" :style="game.isInstalled ? '' : 'filter: grayscale(100%);' " :gradient="game.isInstalled ? '' : 'to top right, rgba(44, 44, 44, 0.7), rgba(44, 44, 44, 0.7)'">
                 <b v-if="loading">{{previousPercent.percent}}</b>
+                <v-img :src="game.artLogo" width="70%" alt="logo" style="margin: auto"></v-img>
             </v-img>
         </v-card>
         <v-card-title class="pa-0">
