@@ -3,13 +3,31 @@ import axios from "axios";
 import JsonTool from "@/service/tools/JsonTool";
 import Release from "@/models/github/Release";
 import {existsSync, writeFileSync} from "fs";
-import {mkdir, rm} from "fs/promises";
+import {mkdir, readdir, rm} from "fs/promises";
 import DxvkTool from "@/service/tools/DxvkTool";
 import download from "download";
 import SystemTool from "@/service/tools/SystemTool";
 import Store from "electron-store";
+import DllTool from "@/service/tools/DllTool";
+import WineTool from "@/service/tools/WineTool";
 
 export default class DxvkService {
+
+    static async enable() {
+        const filesX32 = await readdir(DxvkTool.currentDxvkX32)
+        const filesX64 = await readdir(DxvkTool.currentDxvkX64)
+
+        await DllTool.enableDlls(filesX32, WineTool.wineDllsX32Path, DxvkTool.currentDxvkX32)
+        await DllTool.enableDlls(filesX64, WineTool.wineDllsX64Path, DxvkTool.currentDxvkX64)
+    }
+
+    static async disable() {
+        const filesX32 = await readdir(DxvkTool.currentDxvkX32)
+        const filesX64 = await readdir(DxvkTool.currentDxvkX64)
+
+        await DllTool.disableDlls(filesX32, WineTool.wineDllsX32Path)
+        await DllTool.disableDlls(filesX64, WineTool.wineDllsX64Path)
+    }
 
     static async update() {
         log.info("Checking for updates...")
