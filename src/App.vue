@@ -5,6 +5,7 @@
         <v-main class="fill-height main">
             <router-view/>
         </v-main>
+        <snackbar-component/>
     </v-app>
 </template>
 
@@ -12,8 +13,9 @@
 import {Component, Vue} from "vue-property-decorator";
 import TitleBar from "@/components/TitleBarComponent.vue";
 import DrawerComponent from "@/components/DrawerComponent.vue";
+import SnackbarComponent from "@/components/SnackbarComponent.vue";
 
-@Component({components:{TitleBar, DrawerComponent}})
+@Component({components:{TitleBar, DrawerComponent, SnackbarComponent}})
 export default class App extends Vue {
 
     showMenu() {
