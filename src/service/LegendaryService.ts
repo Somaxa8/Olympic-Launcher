@@ -2,7 +2,7 @@ import log from "loglevel";
 import {spawn} from "child_process";
 import { session } from "electron";
 import LegendaryTool from "@/service/tools/LegendaryTool";
-import {readdir} from "fs/promises";
+import {readdir, readFile} from "fs/promises";
 import Game from "@/models/legendary/Game";
 import Store from "electron-store";
 import SystemTool from "@/service/tools/SystemTool";
@@ -10,6 +10,13 @@ import InstallProgress from "@/models/legendary/InstallProgress";
 import WineTool from "@/service/tools/WineTool";
 
 export default class LegendaryService {
+
+    static async getUsername() {
+        const path = `${LegendaryTool.legendaryConfigPath}/user.json`
+        const { displayName } = JSON.parse(await readFile(path, "utf-8"))
+        log.info("User: ", displayName)
+        return displayName
+    }
 
     static async launch(appName: String) {
         log.info("Running...")

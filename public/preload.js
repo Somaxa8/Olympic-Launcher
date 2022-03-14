@@ -4,7 +4,7 @@ const validChannels = [
     "hide-app", "minimize-app", "close-app",
     "get-session", "get-library", "response-library",
     "install-game", "install-status", "game-progress",
-    "launch-game"
+    "launch-game", "get-username", "delete-session"
 ]
 contextBridge.exposeInMainWorld(
     'ipc', {

@@ -27,6 +27,8 @@ import {Component, Vue} from "vue-property-decorator";
 import {getModule} from "vuex-module-decorators";
 import DrawerModule from "@/store/DrawerModule";
 import SessionModule from "@/store/SessionModule";
+import SessionRenderer from "@/service/renderer/SessionRenderer";
+import TimeTool from "@/service/tools/TimeTool";
 
 
 @Component
@@ -55,8 +57,9 @@ export default class DrawerComponent extends Vue {
         this.drawerModule.setMiniDrawerEnabled(enabled)
     }
 
-    createAvatarInitials() {
-        this.avatarInitials = "M";
+    async createAvatarInitials() {
+        await TimeTool.timeout(3000)
+        this.avatarInitials = SessionRenderer.getUsername().slice(0, 1)
     }
 
 }
