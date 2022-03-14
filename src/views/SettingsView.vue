@@ -54,6 +54,7 @@
 import {Component, Vue} from "vue-property-decorator";
 import Settings from "@/models/Settings";
 import SettingsRenderer from "@/service/renderer/SettingsRenderer";
+import NotificationRenderer from "@/service/renderer/NotificationRenderer";
 
 @Component
 export default class SettingsView extends Vue {

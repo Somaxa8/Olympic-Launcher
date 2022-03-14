@@ -5,7 +5,7 @@ const validChannels = [
     "get-session", "get-library", "response-library",
     "install-game", "install-status", "game-progress",
     "launch-game", "get-username", "delete-session",
-    "get-settings", "set-settings"
+    "get-settings", "set-settings", "notification"
 ]
 contextBridge.exposeInMainWorld(
     'ipc', {

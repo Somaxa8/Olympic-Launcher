@@ -4,6 +4,7 @@ import Vkd3dService from "@/service/Vkd3dService";
 import WineService from "@/service/WineService";
 import Store from "electron-store";
 import log from "loglevel";
+import NotificationService from "@/service/NotificationService";
 
 export default class SettingsService {
 
@@ -31,6 +32,7 @@ export default class SettingsService {
     static async saveSettings(settings: Settings) {
         new Store().set("settings", settings)
         await this.check()
+        NotificationService.make({title: "Saved Settings", body: "Your settings have been saved successfully"})
     }
 
     static getSettings(): Settings {

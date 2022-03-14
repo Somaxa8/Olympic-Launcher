@@ -7,12 +7,14 @@ import DxvkService from "@/service/DxvkService";
 import Vkd3dService from "@/service/Vkd3dService";
 import SettingsService from "@/service/SettingsService";
 import SettingsMain from "@/service/main/SettingsMain";
+import NotificationMain from "@/service/main/NotificationMain";
 
 export default (windows: BrowserWindow) => {
     LegendaryMain.main(windows)
     WindowMain.main(windows)
     SessionMain.main(windows)
     SettingsMain.main(windows)
+    NotificationMain.main(windows)
 
     WineService.update()
     DxvkService.update()
