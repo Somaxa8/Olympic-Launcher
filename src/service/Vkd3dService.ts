@@ -2,7 +2,7 @@ import log from "loglevel";
 import axios from "axios";
 import JsonTool from "@/service/tools/JsonTool";
 import Release from "@/models/github/Release";
-import {existsSync, writeFileSync} from "fs";
+import {existsSync, readdirSync, writeFileSync} from "fs";
 import {mkdir, readdir, rm} from "fs/promises";
 import download from "download";
 import SystemTool from "@/service/tools/SystemTool";
@@ -13,7 +13,17 @@ import WineTool from "@/service/tools/WineTool";
 
 export default class Vkd3dService {
 
+    static isEnable(): boolean {
+        const filesX32 = readdirSync(Vkd3dTool.currentVkd3dX32)
+        const filesX64 = readdirSync(Vkd3dTool.currentVkd3dX64)
+        const x32 = DllTool.isEnableDlls(filesX32, WineTool.wineDllsX32Path)
+        const x64 = DllTool.isEnableDlls(filesX64, WineTool.wineDllsX64Path)
+
+        return x32 && x64
+    }
+
     static async enable() {
+        log.info("Enabling vkd3d...")
         const filesX32 = await readdir(Vkd3dTool.currentVkd3dX32)
         const filesX64 = await readdir(Vkd3dTool.currentVkd3dX64)
 
@@ -22,6 +32,7 @@ export default class Vkd3dService {
     }
 
     static async disable() {
+        log.info("Disabling vkd3d...")
         const filesX32 = await readdir(Vkd3dTool.currentVkd3dX32)
         const filesX64 = await readdir(Vkd3dTool.currentVkd3dX64)
 

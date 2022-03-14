@@ -20,7 +20,7 @@ export default class LegendaryService {
 
     static async launch(appName: String) {
         log.info("Running...")
-        const command  = `${LegendaryTool.legendaryBin} launch ${appName} --wine ${WineTool.wineBin}`
+        const command  = `${LegendaryTool.legendaryBin} launch ${appName} --wine ${WineTool.wineBin} --wine-prefix ${WineTool.winePrefix}`
         log.info("Command: ", command)
 
         try {

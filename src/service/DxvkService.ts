@@ -2,7 +2,7 @@ import log from "loglevel";
 import axios from "axios";
 import JsonTool from "@/service/tools/JsonTool";
 import Release from "@/models/github/Release";
-import {existsSync, writeFileSync} from "fs";
+import {existsSync, writeFileSync, readdirSync} from "fs";
 import {mkdir, readdir, rm} from "fs/promises";
 import DxvkTool from "@/service/tools/DxvkTool";
 import download from "download";
@@ -13,7 +13,17 @@ import WineTool from "@/service/tools/WineTool";
 
 export default class DxvkService {
 
+    static isEnable(): boolean {
+        const filesX32 = readdirSync(DxvkTool.currentDxvkX32)
+        const filesX64 = readdirSync(DxvkTool.currentDxvkX64)
+        const x32 = DllTool.isEnableDlls(filesX32, WineTool.wineDllsX32Path)
+        const x64 = DllTool.isEnableDlls(filesX64, WineTool.wineDllsX64Path)
+
+        return x32 && x64
+    }
+
     static async enable() {
+        log.info("Enabling dxvk...")
         const filesX32 = await readdir(DxvkTool.currentDxvkX32)
         const filesX64 = await readdir(DxvkTool.currentDxvkX64)
 
@@ -22,6 +32,7 @@ export default class DxvkService {
     }
 
     static async disable() {
+        log.info("Disabling dxvk...")
         const filesX32 = await readdir(DxvkTool.currentDxvkX32)
         const filesX64 = await readdir(DxvkTool.currentDxvkX64)
 

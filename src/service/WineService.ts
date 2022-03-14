@@ -5,11 +5,15 @@ import log from "loglevel";
 import download from "download";
 import WineTool from "@/service/tools/WineTool";
 import {existsSync, writeFileSync} from "fs";
-import {mkdir, rm} from "fs/promises";
+import {mkdir, readdir, rm} from "fs/promises";
 import SystemTool from "@/service/tools/SystemTool";
 import Store from "electron-store";
 
 export default class WineService {
+
+    static async getLocalBuildsWine() {
+        return await readdir(WineTool.winePath)
+    }
 
     static async update() {
         log.info("Checking for updates...")

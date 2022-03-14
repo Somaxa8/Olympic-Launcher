@@ -9,6 +9,7 @@ const routes: Array<RouteConfig> = [
     {path: '/', name: 'Home', component: () => import("../views/HomeView.vue")},
     {path: '/store', name: 'Store', component: () => import("../views/StoreView.vue")},
     {path: '/login', name: 'Login', component: () => import("../views/LoginView.vue")},
+    {path: '/settings', name: 'Settings', component: () => import("../views/SettingsView.vue")},
 ]
 
 const router = new VueRouter({
