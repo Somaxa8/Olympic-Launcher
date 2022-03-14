@@ -6,6 +6,7 @@
             <router-view/>
         </v-main>
         <snackbar-component/>
+        <dialog-component/>
     </v-app>
 </template>
 
@@ -14,8 +15,9 @@ import {Component, Vue} from "vue-property-decorator";
 import TitleBar from "@/components/TitleBarComponent.vue";
 import DrawerComponent from "@/components/DrawerComponent.vue";
 import SnackbarComponent from "@/components/SnackbarComponent.vue";
+import DialogComponent from "@/components/DialogComponent.vue";
 
-@Component({components:{TitleBar, DrawerComponent, SnackbarComponent}})
+@Component({components:{TitleBar, DrawerComponent, SnackbarComponent, DialogComponent}})
 export default class App extends Vue {
 
     showMenu() {
