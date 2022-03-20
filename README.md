@@ -1,19 +1,13 @@
-# olympic-launcher
+# Olympic Launcher
 
-## Project setup
-```
-npm install
-```
+Olympic Launcher is an unofficial client of the Epic Games Store which is prepared to launch games on linux through wine builds provided by GloriousEggroll/wine-ge-custom.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Target:
 
-### Compiles and minifies for production
-```
-npm run build
-```
+This launcher has been created with the aim of having a launcher that runs natively on any linux distribution without having to depend on software like lutris, avoiding having to launch the official Epic Games client with wine, which is slow and somewhat buggy on wine.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Also our client directly provides extra functionality such as:
+- Configurable FSR support (AMD FidelityFX)
+- Support for Esync and Fsync
+- Constant updates of Wine GE, DXVK and VKD3D (and Winetricks coming soon)
+- Default integration with MangoHud (FPS Counter)
