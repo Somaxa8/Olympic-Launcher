@@ -39,7 +39,6 @@ export default class WineService {
             log.info("!We have downloaded a new update -", release.wineAsset.wineName)
         } catch (err) {
             log.error(err)
-            return Promise.reject(err)
         }
     }
     

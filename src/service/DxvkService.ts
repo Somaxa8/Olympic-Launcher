@@ -64,7 +64,6 @@ export default class DxvkService {
             log.info("!We have downloaded a new update -", release.dxvkAsset.dxvkName)
         } catch (err) {
             log.error(err)
-            return Promise.reject(err)
         }
     }
 
