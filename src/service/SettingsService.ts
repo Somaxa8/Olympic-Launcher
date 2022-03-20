@@ -24,6 +24,12 @@ export default class SettingsService {
         if (settings.fsr && !SettingsService.isFSREnable()) await SettingsService.enableFSR(settings)
         if (!settings.fsr && SettingsService.isFSREnable()) await SettingsService.disableFSR(settings)
 
+        if (settings.esync && !SettingsService.isEsyncEnable()) await SettingsService.enableEsync(settings)
+        if (!settings.esync && SettingsService.isEsyncEnable()) await SettingsService.enableEsync(settings)
+
+        if (settings.fsync && !SettingsService.isFsyncEnable()) await SettingsService.enableFsync(settings)
+        if (!settings.fsync && SettingsService.isFsyncEnable()) await SettingsService.enableFsync(settings)
+
         await SettingsService.setFSRStrength(settings)
 
         settings.wineVersions = await WineService.getLocalBuildsWine()
@@ -33,6 +39,7 @@ export default class SettingsService {
         store.set("settings", settings)
 
         log.info(savedSettings)
+        log.debug(process.env)
     }
 
     static async saveSettings(settings: Settings) {
@@ -66,5 +73,36 @@ export default class SettingsService {
         return process.env.WINE_FULLSCREEN_FSR != undefined && process.env.WINE_FULLSCREEN_FSR == "1"
     }
 
+    static async enableEsync(settings: Settings) {
+        process.env.WINEESYNC = "1"
+        settings.esync = true
+        log.info("Esync enabled")
+    }
+
+    static async disableEsync(settings: Settings) {
+        process.env.WINEESYNC = "0"
+        settings.esync = false
+        log.info("Esync disabled")
+    }
+
+    static isEsyncEnable(): boolean {
+        return process.env.WINEESYNC != undefined && process.env.WINEESYNC == "1"
+    }
+
+    static async enableFsync(settings: Settings) {
+        process.env.WINEEFYNC = "1"
+        settings.fsync = true
+        log.info("Fsync enabled")
+    }
+
+    static async disableFsync(settings: Settings) {
+        process.env.WINEFSYNC = "0"
+        settings.fsync = false
+        log.info("Fsync disabled")
+    }
+
+    static isFsyncEnable(): boolean {
+        return process.env.WINEFSYNC != undefined && process.env.WINEFSYNC == "1"
+    }
 
 }

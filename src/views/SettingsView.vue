@@ -36,8 +36,10 @@
                                     <v-switch v-model="settings.dxvk" inset :label="settings.dxvk ? 'Enable' : 'Disable'" color="success"/>
                                     <p>VKD3D</p>
                                     <v-switch v-model="settings.vkd3d" inset :label="settings.vkd3d ? 'Enable' : 'Disable'" color="success"/>
+                                    <p class="grey--text">Enabling Esync and Fsync can be beneficial for most games, but some might crash with this option.</p>
                                     <p>Esync</p>
                                     <v-switch v-model="settings.esync" inset :label="settings.esync ? 'Enable' : 'Disable'" color="success"/>
+                                    <p class="grey--text">Fsync requires a modified kernel in order to be used.</p>
                                     <p>Fsync</p>
                                     <v-switch v-model="settings.fsync" inset :label="settings.fsync ? 'Enable' : 'Disable'" color="success"/>
                                 </v-expansion-panel-content>
