@@ -9,11 +9,13 @@ export default class SessionRenderer {
         return window.ipc.sendSync("get-session")
     }
 
-    static deleteSession(): Session {
+    static deleteSession(callback: any) {
         const session = getModule(SessionModule)
         session.session.sid = null
+        session.saveSession()
         //@ts-ignore
-        return window.ipc.sendSync("delete-session")
+        window.ipc.send("delete-session")
+        callback()
     }
 
     static getUsername(): string {

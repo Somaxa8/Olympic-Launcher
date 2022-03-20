@@ -6,8 +6,8 @@
                 <v-card-text>{{dialogModule.body}}</v-card-text>
                 <v-card-actions>
                     <div class="flex-grow-1"></div>
-                    <v-btn color="primary" text @click="acceptClick()">Accept</v-btn>
-                    <v-btn color="primary" text @click="dialog = false">Cancel</v-btn>
+                    <v-btn color="info" text @click="acceptClick()">Accept</v-btn>
+                    <v-btn color="info" text @click="dialog = false">Cancel</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
