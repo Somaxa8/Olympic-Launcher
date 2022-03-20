@@ -10,6 +10,7 @@ const routes: Array<RouteConfig> = [
     {path: '/store', name: 'Store', component: () => import("../views/StoreView.vue")},
     {path: '/login', name: 'Login', component: () => import("../views/LoginView.vue")},
     {path: '/settings', name: 'Settings', component: () => import("../views/SettingsView.vue")},
+    {path: '/wiki', name: 'Wiki', component: () => import("../views/WikiView.vue")},
 ]
 
 const router = new VueRouter({

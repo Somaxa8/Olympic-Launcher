@@ -58,7 +58,7 @@ export default class DrawerComponent extends Vue {
     }
 
     async createAvatarInitials() {
-        await TimeTool.timeout(3000)
+        await TimeTool.timeout(2000)
         this.avatarInitials = SessionRenderer.getUsername().slice(0, 1)
     }
 
