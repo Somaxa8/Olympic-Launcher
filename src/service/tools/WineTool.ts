@@ -1,10 +1,11 @@
 import LegendaryTool from "@/service/tools/LegendaryTool";
 import SettingsService from "@/service/SettingsService";
+import Store from "electron-store";
 
 export default class WineTool {
 
     static get currentWine() {
-        const version = SettingsService.getSettings().wineVersion
+        const version = SettingsService.getSettings() ? SettingsService.getSettings().wineVersion : new Store().get("wine-version")
         return WineTool.winePath + version
     }
 

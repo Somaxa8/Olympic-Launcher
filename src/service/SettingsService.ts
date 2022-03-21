@@ -5,11 +5,14 @@ import WineService from "@/service/WineService";
 import Store from "electron-store";
 import log from "loglevel";
 import NotificationService from "@/service/NotificationService";
-import SystemTool from "@/service/tools/SystemTool";
 
 export default class SettingsService {
 
     static async check() {
+        log.info("Checking settings...")
+
+        await WineService.createPrefixIfNoExists()
+
         const store = new Store()
         const savedSettings = store.get("settings") as Settings | undefined
         let settings = savedSettings ? savedSettings : new Settings()

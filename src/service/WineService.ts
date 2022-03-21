@@ -39,6 +39,16 @@ export default class WineService {
             log.info("!We have downloaded a new update -", release.wineAsset.wineName)
         } catch (err) {
             log.error(err)
+            return Promise.reject(err)
+        }
+    }
+
+    static async createPrefixIfNoExists() {
+        if (!existsSync(WineTool.winePrefix)) {
+            process.env.WINEPREFIX = WineTool.winePrefix
+            const command = `${WineTool.wineBin} startup.exe`
+            log.debug("Command: ", command)
+            await SystemTool.execAsync(command, SystemTool.execOptions)
         }
     }
     

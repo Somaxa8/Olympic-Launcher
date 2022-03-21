@@ -10,6 +10,8 @@ import SettingsMain from "@/service/main/SettingsMain";
 import NotificationMain from "@/service/main/NotificationMain";
 
 export default (windows: BrowserWindow) => {
+    SettingsService.check()
+
     LegendaryMain.main(windows)
     WindowMain.main(windows)
     SessionMain.main(windows)
@@ -20,5 +22,4 @@ export default (windows: BrowserWindow) => {
     DxvkService.update()
     Vkd3dService.update()
 
-    SettingsService.check()
 }

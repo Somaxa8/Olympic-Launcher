@@ -1,9 +1,5 @@
 export default class Settings {
-    wineVersions: string[] = [
-        "Wine-GE-Proton7-6 Released",
-        "Wine-GE-Proton7-5 Released",
-        "Wine-GE-Proton7-4 Released"
-    ]
+    wineVersions: string[] = []
     wineVersion = ""
     fsr: boolean = false
     fsrSharpness: number = 1

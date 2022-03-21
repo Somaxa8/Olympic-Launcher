@@ -64,6 +64,7 @@ export default class Vkd3dService {
             log.info("!We have downloaded a new update -", release.vkd3dAsset.vkd3dName)
         } catch (err) {
             log.error(err)
+            return Promise.reject(err)
         }
     }
 

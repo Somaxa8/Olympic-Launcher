@@ -4,7 +4,6 @@ import { session } from "electron";
 import LegendaryTool from "@/service/tools/LegendaryTool";
 import {readdir, readFile} from "fs/promises";
 import Game from "@/models/legendary/Game";
-import Store from "electron-store";
 import SystemTool from "@/service/tools/SystemTool";
 import InstallProgress from "@/models/legendary/InstallProgress";
 import WineTool from "@/service/tools/WineTool";
@@ -141,8 +140,6 @@ export default class LegendaryService {
         await ses.clearCache()
         await ses.clearAuthCache()
         await ses.clearHostResolverCache()
-        const store = new Store()
-        store.clear()
     }
 
 }
