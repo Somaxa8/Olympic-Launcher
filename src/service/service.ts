@@ -8,8 +8,11 @@ import Vkd3dService from "@/service/Vkd3dService";
 import SettingsService from "@/service/SettingsService";
 import SettingsMain from "@/service/main/SettingsMain";
 import NotificationMain from "@/service/main/NotificationMain";
+import log from "loglevel";
 
 export default (windows: BrowserWindow) => {
+    log.info("Exec path: ", process.execPath)
+
     SettingsService.check()
 
     LegendaryMain.main(windows)

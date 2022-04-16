@@ -5,9 +5,10 @@ import { promisify } from "util";
 
 export default class SystemTool {
 
-    static readonly isFlatpak = execPath === "/app/bin/olympic-launcher"
+    static readonly isFlatpak = execPath === "/app/bin/olympic/olympic-launcher"
     static readonly flatpakHome = env.XDG_DATA_HOME?.replace("/data", "") || homedir()
     static readonly home = this.isFlatpak ? this.flatpakHome : homedir()
+    static readonly config = env.XDG_CONFIG_HOME || env.HOME + "/.config"
     static readonly MAX_BUFFER = 25 * 1024 * 1024
     static readonly execOptions = {maxBuffer: SystemTool.MAX_BUFFER, shell: SystemTool.getShell(), env: process.env}
     static execAsync = promisify(exec)
